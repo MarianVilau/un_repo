@@ -1,0 +1,23 @@
+bash scripts/health.sh
+== OpenSearch cluster health
+{
+  "cluster_name" : "lab-cluster",
+  "status" : "yellow",
+  "timed_out" : false,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
+  "discovered_master" : true,
+  "discovered_cluster_manager" : true,
+  "active_primary_shards" : 6,
+  "active_shards" : 6,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 1,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 85.71428571428571
+}
+== Dashboards status
+{"name":"1d9962c4c6d8","uuid":"d12b9b65-112e-4547-a31c-8b52056fb1b0","version":{"number":"2.19.1","build_hash":"782801008fa7d872292e48caca1aca74be5304a6","build_number":8312,"build_snapshot":false},"status":{"overall":{"since":"2026-11-09T17:18:38.948Z","state":"green","title":"Green","nickname":"Looking good","icon":"success","uiColor":"secondary"},"statuses":[{"id":"core:opensearch@2.19.1","mess
