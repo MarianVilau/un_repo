@@ -1,0 +1,8 @@
+== chain as seen by a client trusting only the Lab Root
+subject=CN=frontdoor.lab
+issuer=O=Lab Root, CN=Lab Root Intermediate CA
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Verify return code: 0 (ok)
+== HTTPS request through the front door
+http_code=302 ssl_verify=0

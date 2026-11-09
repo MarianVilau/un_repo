@@ -33,6 +33,8 @@ cert:
 	step ca certificate frontdoor.lab certs/frontdoor.crt certs/frontdoor.key \
 	  --san frontdoor.lab --san localhost \
 	  --ca-url https://localhost:8443 --root "$$(step path)/certs/root_ca.crt" --force
+	chmod 700 certs
+	chmod 644 certs/frontdoor.crt certs/frontdoor.key
 
 reload:
 	docker compose $(ENV_FILES) exec frontdoor nginx -s reload
