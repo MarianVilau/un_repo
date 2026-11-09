@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Secrets and key material (R-02). Only SOPS ciphertext under secrets/ is committed.
+.env
+.env.secrets
+certs/
+*.key
+*.pem
+keys.txt
