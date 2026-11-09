@@ -38,3 +38,6 @@ Run `make up` twice from zero (`make down` between) to show the stack is reprodu
 - The front door proxies Dashboards to plain HTTP inside the Compose network. Dashboards itself is not TLS.
 - Dashboards runs with the default security plugin settings of the image. It is not hardened beyond that.
 - `make cert` uses the step-ca provisioner prompt, so it asks for the provisioner password.
+- `make cert` sets `certs/` to 700 and the leaf files to 644. The nginx container drops all capabilities, so it cannot read a 600 key owned by another user. The key is a lab key on a single-user machine, and `certs/` stays out of git.
+- `make health` sends the admin password to Dashboards over plain HTTP on the loopback address, through curl's stdin, because `/api/status` needs authentication.
+- The lab root is named `Lab Root Root CA`. Trust it only while testing and remove it from the OS store afterwards: its key lives on this disk and it has no name constraints.
