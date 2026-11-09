@@ -1,0 +1,77 @@
+# Lab 3 stack: single-node OpenSearch, Dashboards and an nginx front door (R-02, R-08).
+#
+# Rules from CLAUDE.md: images pinned by digest, host ports and the admin password come
+# from the environment, data lives on a named volume.
+#
+# The digests below are placeholders (all zeros). Run `make pin-digests` once: it pulls each
+# image and writes the digest your Docker daemon resolves. `make verify` fails until then.
+name: secops-lab
+
+services:
+  opensearch:
+    image: opensearchproject/opensearch@sha256:0000000000000000000000000000000000000000000000000000000000000000  # 2.19.1
+    environment:
+      - cluster.name=lab-cluster
+      - discovery.type=single-node
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    ports:
+      - "127.0.0.1:${OPENSEARCH_PORT}:9200"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          curl -sk -u "admin:$${OPENSEARCH_INITIAL_ADMIN_PASSWORD}"
+          https://localhost:9200/_cluster/health
+          | grep -Eq '"status":"(green|yellow)"'
+      interval: 10s
+      timeout: 5s
+      retries: 18
+      start_period: 40s
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards@sha256:0000000000000000000000000000000000000000000000000000000000000000  # 2.19.1
+    environment:
+      - 'OPENSEARCH_HOSTS=["https://opensearch:9200"]'
+    ports:
+      - "127.0.0.1:${DASHBOARDS_PORT}:5601"
+    depends_on:
+      opensearch:
+        condition: service_healthy
+
+  # Starts only when certs/frontdoor.crt exists (see the Makefile), so `make up` works
+  # before the lab CA has issued a certificate.
+  frontdoor:
+    image: nginx@sha256:0000000000000000000000000000000000000000000000000000000000000000  # 1.27-alpine
+    profiles: ["frontdoor"]
+    ports:
+      - "127.0.0.1:${HTTPS_PORT}:443"
+    volumes:
+      - ./nginx/frontdoor.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs/frontdoor.crt:/etc/nginx/certs/frontdoor.crt:ro
+      - ./certs/frontdoor.key:/etc/nginx/certs/frontdoor.key:ro
+    depends_on:
+      - opensearch-dashboards
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  opensearch-data:
