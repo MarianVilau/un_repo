@@ -3,8 +3,8 @@
 # Rules from CLAUDE.md: images pinned by digest, host ports and the admin password come
 # from the environment, data lives on a named volume.
 #
-# The digests below are placeholders (all zeros). Run `make pin-digests` once: it pulls each
-# image and writes the digest your Docker daemon resolves. `make verify` fails until then.
+# Digests were resolved by `make pin-digests`, which pulls each image and writes the digest
+# your Docker daemon reports. Re-run it only when you change a tag, then run `make verify`.
 name: secops-lab
 
 services:
