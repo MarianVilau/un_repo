@@ -9,3 +9,12 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 | `s1-force-push-refused.png` | `git push --force origin main` rejected by the ruleset. On Free: the `main-only-via-pr` run that fails on a commit with no PR. | R-03 |
 | `s1-token-scope.png` | Settings, Developer settings, fine-grained token: one repository, Contents and Pull requests, 7-day expiry. Hide the token value. | R-04 |
 | `s1-pr-blocked.png` | A pull request opened from a Claude Code or Gemini CLI session with a failing check, merge button disabled. | R-01 |
+
+## Session 2
+
+| File | How to produce it | Risk |
+|---|---|---|
+| `s2-memory-persists.png` | Correct the assistant once ("never hardcode ports"), show the new file in `.claude/memory/` and the line in `MEMORY.md`, open a new session and show the rule applied. | R-05 |
+| `s2-hook-blocks-force-push.png` | Ask the assistant to run `git push --force origin HEAD`. Screenshot the `R-03` refusal from the hook. | R-03 |
+| `s2-poisoning-blocked.png` | Steps in `docs/memory-poisoning-note.md`. | R-05 |
+| `s2-guard-tests.png` | `pytest -q tests/test_guard_hook.py` passing. | R-05 |

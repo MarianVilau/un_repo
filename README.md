@@ -16,7 +16,7 @@ The project turns an existing pfSense, Snort and Juice Shop home lab into a smal
 | Session | Content | State |
 |---|---|---|
 | 1 | Risk register, governed repository | in progress |
-| 2 | CLAUDE.md, memory, skills | planned |
+| 2 | CLAUDE.md, memory, skills, guard hook | in review |
 | 3 | Compose, SOPS/age, lab PKI | planned |
 | 4 | CI/CD, SBOM, signing | planned |
 | 5 | Sigma rules and tests | planned |
