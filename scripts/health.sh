@@ -36,7 +36,8 @@ done
 
 echo "== Dashboards status"
 for ((i = 1; i <= tries; i++)); do
-  if out=$(curl -s "http://localhost:${DASHBOARDS_PORT}/api/status") &&
+  if out=$(printf 'user = "admin:%s"\n' "$OPENSEARCH_INITIAL_ADMIN_PASSWORD" |
+    curl -s -K - "http://localhost:${DASHBOARDS_PORT}/api/status") &&
     grep -q '"state":"green"' <<<"$out"; then
     echo "$out" | head -c 400
     echo
