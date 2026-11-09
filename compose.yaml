@@ -9,7 +9,7 @@ name: secops-lab
 
 services:
   opensearch:
-    image: opensearchproject/opensearch@sha256:0000000000000000000000000000000000000000000000000000000000000000  # 2.19.1
+    image: opensearchproject/opensearch@sha256:72fe2fc84be8295906b8efca020b46c58ed45c8da60cd9b8b49e1991e38e89a4  # 2.19.1
     environment:
       - cluster.name=lab-cluster
       - discovery.type=single-node
@@ -36,7 +36,7 @@ services:
       start_period: 40s
 
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards@sha256:0000000000000000000000000000000000000000000000000000000000000000  # 2.19.1
+    image: opensearchproject/opensearch-dashboards@sha256:70fb0a6563f204f391c444329287ce7ac50dbb7b99a43307c047de1fcfb9c658  # 2.19.1
     environment:
       - 'OPENSEARCH_HOSTS=["https://opensearch:9200"]'
     ports:
@@ -48,7 +48,7 @@ services:
   # Starts only when certs/frontdoor.crt exists (see the Makefile), so `make up` works
   # before the lab CA has issued a certificate.
   frontdoor:
-    image: nginx@sha256:0000000000000000000000000000000000000000000000000000000000000000  # 1.27-alpine
+    image: nginx@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10  # 1.27-alpine
     profiles: ["frontdoor"]
     ports:
       - "127.0.0.1:${HTTPS_PORT}:443"
