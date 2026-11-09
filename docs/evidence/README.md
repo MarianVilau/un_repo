@@ -18,3 +18,12 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 | `s2-hook-blocks-force-push.png` | Ask the assistant to run `git push --force origin HEAD`. Screenshot the `R-03` refusal from the hook. | R-03 |
 | `s2-poisoning-blocked.png` | Steps in `docs/memory-poisoning-note.md`. | R-05 |
 | `s2-guard-tests.png` | `pytest -q tests/test_guard_hook.py` passing. | R-05 |
+
+## Session 3
+
+| File | How to produce it | Risk |
+|---|---|---|
+| `s3-health-up1.txt` | `make up && make health > docs/evidence/s3-health-up1.txt` | R-08 |
+| `s3-health-up2.txt` | `make down && make up && make health > docs/evidence/s3-health-up2.txt` (reproducible from zero) | R-08 |
+| `s3-git-show-ciphertext.txt` | `git show HEAD:secrets/opensearch.enc.yaml > docs/evidence/s3-git-show-ciphertext.txt` (ciphertext only) | R-02 |
+| `s3-cert-chain.png` | Browser padlock on `https://frontdoor.lab` showing leaf, then Lab Root. | R-08 |
