@@ -26,4 +26,5 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 | `s3-health-up1.txt` | `make up && make health > docs/evidence/s3-health-up1.txt` | R-08 |
 | `s3-health-up2.txt` | `make down && make up && make health > docs/evidence/s3-health-up2.txt` (reproducible from zero) | R-08 |
 | `s3-git-show-ciphertext.txt` | `git show HEAD:secrets/opensearch.enc.yaml > docs/evidence/s3-git-show-ciphertext.txt` (ciphertext only) | R-02 |
-| `s3-cert-chain.png` | Browser padlock on `https://frontdoor.lab` showing leaf, then Lab Root. | R-08 |
+| `s3-cert-chain.txt` | `openssl s_client` and `curl --cacert` against `https://frontdoor.lab`: issuer, TLS 1.3, verify code 0, HTTP 302 from Dashboards. | R-08 |
+| `s3-cert-chain.png` | Browser padlock on `https://frontdoor.lab`, certificate valid, Dashboards login behind it. The lab root was removed from the OS store afterwards. | R-08 |
