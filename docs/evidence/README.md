@@ -28,3 +28,12 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 | `s3-git-show-ciphertext.txt` | `git show HEAD:secrets/opensearch.enc.yaml > docs/evidence/s3-git-show-ciphertext.txt` (ciphertext only) | R-02 |
 | `s3-cert-chain.txt` | `openssl s_client` and `curl --cacert` against `https://frontdoor.lab`: issuer, TLS 1.3, verify code 0, HTTP 302 from Dashboards. | R-08 |
 | `s3-cert-chain.png` | Browser padlock on `https://frontdoor.lab`, certificate valid, Dashboards login behind it. The lab root was removed from the OS store afterwards. | R-08 |
+
+## Session 4
+
+| File | How to produce it | Risk |
+|---|---|---|
+| `s4-ci-green.png` | The `ci` run on the pull request: all jobs green, `ci-gate` included. | R-07, R-06 |
+| `s4-pr-blocked-by-ci.png` | A pull request with a deliberate failure (for example a tag-pinned action), merge button disabled by the required `ci-gate` check. Close it afterwards. | R-01 |
+| `s4-actions-settings.png` | Settings, Actions, General: SHA pinning required, workflow permissions read only, approval for outside contributors. | R-06 |
+| `s4-release-verify.txt` | Output of the `cosign verify-blob` commands in `docs/ci-runbook.md`, run on the downloaded release files. | R-06 |

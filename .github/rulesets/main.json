@@ -49,6 +49,10 @@
           {
             "context": "pr-cites-risk-id",
             "integration_id": 15368
+          },
+          {
+            "context": "ci-gate",
+            "integration_id": 15368
           }
         ]
       }
