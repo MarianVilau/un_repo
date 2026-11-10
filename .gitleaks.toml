@@ -1,0 +1,10 @@
+# R-02. Start from the default ruleset and add no silent exceptions.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "SOPS ciphertext and public age keys are not secrets"
+paths = [
+  '''secrets/.*\.enc\.yaml''',
+  '''\.sops\.yaml''',
+]
