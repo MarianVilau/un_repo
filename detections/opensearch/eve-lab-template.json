@@ -1,0 +1,53 @@
+{
+  "index_patterns": ["eve-lab*"],
+  "template": {
+    "settings": {
+      "analysis": {
+        "normalizer": {
+          "lowercase_normalizer": { "type": "custom", "filter": ["lowercase"] }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": { "type": "date" },
+        "message": { "type": "text" },
+        "tags": { "type": "keyword" },
+        "event": {
+          "properties": {
+            "module": { "type": "keyword" },
+            "dataset": { "type": "keyword" },
+            "kind": { "type": "keyword" },
+            "category": { "type": "keyword" },
+            "severity": { "type": "long" }
+          }
+        },
+        "source": { "properties": { "ip": { "type": "ip" }, "port": { "type": "integer" } } },
+        "destination": { "properties": { "ip": { "type": "ip" }, "port": { "type": "integer" } } },
+        "network": { "properties": { "transport": { "type": "keyword" } } },
+        "rule": {
+          "properties": {
+            "id": { "type": "keyword" },
+            "name": { "type": "keyword", "normalizer": "lowercase_normalizer" },
+            "category": { "type": "keyword", "normalizer": "lowercase_normalizer" }
+          }
+        },
+        "url": {
+          "properties": {
+            "domain": { "type": "keyword" },
+            "original": { "type": "keyword", "normalizer": "lowercase_normalizer" }
+          }
+        },
+        "user_agent": {
+          "properties": { "original": { "type": "keyword", "normalizer": "lowercase_normalizer" } }
+        },
+        "http": {
+          "properties": {
+            "request": { "properties": { "method": { "type": "keyword" } } },
+            "response": { "properties": { "status_code": { "type": "integer" } } }
+          }
+        }
+      }
+    }
+  }
+}
