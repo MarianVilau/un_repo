@@ -19,7 +19,7 @@ The project turns an existing pfSense, Snort and Juice Shop home lab into a smal
 | 2 | CLAUDE.md, memory, skills, guard hook | in review |
 | 3 | Compose, SOPS/age, lab PKI | in review, evidence added |
 | 4 | CI/CD, SBOM, signing | in review, needs first run on GitHub |
-| 5 | Sigma rules and tests | planned |
+| 5 | Sigma rules and tests | in review, needs Dashboards evidence |
 | 6 | MISP and Shodan enrichment | planned |
 | 7 | Observability, automated review | planned |
 

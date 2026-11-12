@@ -7,7 +7,7 @@ SHELL := /bin/bash
 ENV_FILES = --env-file .env $(if $(wildcard .env.secrets),--env-file .env.secrets)
 PROFILE   = $(if $(wildcard certs/frontdoor.crt),--profile frontdoor)
 
-.PHONY: secrets up down health cert reload pin-digests verify test lint
+.PHONY: secrets up down health cert reload pin-digests verify test lint sigma-query load-samples
 
 .env:
 	cp .env.example .env
@@ -52,3 +52,11 @@ test:
 
 lint:
 	pre-commit run --all-files
+
+# Print the OpenSearch query pySigma generates from each Sigma rule.
+sigma-query:
+	python3 scripts/sigma_query.py
+
+# Create the index template and load the EVE samples into the running stack.
+load-samples:
+	bash scripts/load-samples.sh
