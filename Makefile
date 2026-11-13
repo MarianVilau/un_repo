@@ -7,7 +7,7 @@ SHELL := /bin/bash
 ENV_FILES = --env-file .env $(if $(wildcard .env.secrets),--env-file .env.secrets)
 PROFILE   = $(if $(wildcard certs/frontdoor.crt),--profile frontdoor)
 
-.PHONY: secrets up down health cert reload pin-digests verify test lint sigma-query load-samples
+.PHONY: secrets up down health cert reload pin-digests verify test lint sigma-query load-samples misp-dictionary exposure-check
 
 .env:
 	cp .env.example .env
@@ -60,3 +60,15 @@ sigma-query:
 # Create the index template and load the EVE samples into the running stack.
 load-samples:
 	bash scripts/load-samples.sh
+
+# Rebuild the MISP indicator dictionary. The key is decrypted into this one command only (R-02, R-09).
+misp-dictionary: .env
+	set -a; . ./.env; set +a; \
+	eval "$$(sops -d secrets/misp.enc.yaml | sed 's/: /=/')"; \
+	python3 threatintel/misp_lookup.py
+
+# Ask Shodan what it sees on the lab IP; exit 1 on an unexpected port (R-02, R-10).
+exposure-check: .env
+	set -a; . ./.env; set +a; \
+	eval "$$(sops -d secrets/shodan.enc.yaml | sed 's/: /=/')"; \
+	python3 scripts/exposure_check.py
