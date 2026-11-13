@@ -106,3 +106,44 @@ def test_requirements_are_pinned_exactly() -> None:
         for line in (ROOT / name).read_text().splitlines():
             if line.strip() and not line.startswith("#"):
                 assert "==" in line, f"{name}: {line} is not pinned with =="
+
+
+AGENT = ROOT / ".github" / "workflows" / "agent-review.yml"
+
+
+def test_agent_review_is_comment_only() -> None:
+    wf = load(AGENT)
+    assert wf["permissions"] == {}
+    perms = wf["jobs"]["review"]["permissions"]
+    assert perms == {"contents": "read", "pull-requests": "write", "id-token": "write"}
+    text = AGENT.read_text()
+    allowed = re.search(r'--allowedTools "([^"]+)"', text).group(1)
+    for banned in ("gh pr review", "gh pr merge", "git push", "Edit", "Write", "gh api"):
+        assert banned not in allowed, banned
+    assert "Do not approve" in text
+
+
+def test_agent_review_skips_forks_and_drafts_and_missing_key() -> None:
+    job = load(AGENT)["jobs"]["review"]
+    assert "head.repo.full_name == github.repository" in job["if"]
+    assert "draft" in job["if"]
+    assert "HAS_KEY" in AGENT.read_text()
+
+
+def test_agent_review_key_comes_from_actions_secrets_only() -> None:
+    text = AGENT.read_text()
+    assert "anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}" in text
+    assert not re.search(r"sk-ant-", text)
+
+
+def test_agent_review_is_not_a_required_check() -> None:
+    import json
+
+    rules = json.loads((ROOT / ".github" / "rulesets" / "main.json").read_text())["rules"]
+    required = {
+        c["context"]
+        for r in rules
+        if r["type"] == "required_status_checks"
+        for c in r["parameters"]["required_status_checks"]
+    }
+    assert "review" not in required and "agent-review" not in required
