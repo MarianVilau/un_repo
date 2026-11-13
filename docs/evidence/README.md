@@ -54,3 +54,11 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 | `s6-misp-event.png` | MISP event with the listed `ip-src`, "For Intrusion Detection System" on. See `docs/threatintel-runbook.md`. | R-09 |
 | `s6-dashboards-misp-hit.png` | After `make load-samples`: Discover on `eve-lab-samples`, query `threat.indicator.matched:true`. | R-09 |
 | `s6-shodan-exposure.txt` | `make exposure-check`. | R-10 |
+
+## Session 7
+
+| File | How to produce it | Risk |
+|---|---|---|
+| `s7-alert-firing.png` | Stop `opensearch-dashboards`, wait about a minute, screenshot `LabServiceDown` firing in Prometheus Alerts or the Alertmanager UI. See `docs/monitoring-runbook.md`. | R-10 |
+| `s7-grafana-alert.png` | The same alert in Grafana, Alerting, Alert rules. | R-10 |
+| `s7-agent-review.png` | The agent's comment on a pull request, with the owner's reply noted in `docs/agent-review.md`. | R-01, R-05 |

@@ -3,3 +3,4 @@ PyYAML==6.0.3
 pySigma==1.5.1
 pySigma-backend-opensearch==2.0.3
 pySigma-backend-elasticsearch==2.1.1
+openpyxl==3.1.5
