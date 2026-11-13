@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from detections import ecs_eve, sigma_match
+from detections import ecs_eve, enrich, sigma_match
 
 ROOT = Path(__file__).resolve().parent.parent
 RULE_FILES = sorted((ROOT / "detections" / "sigma").glob("*.yml"))
@@ -21,13 +21,18 @@ SAMPLES = ROOT / "tests" / "samples" / "eve"
 PREFIX = {
     "web_sql_injection_alert": "sqli",
     "web_scanner_user_agent": "scanner",
+    "web_alert_from_misp_source": "listed",
 }
-ECS_FIELDS = set(ecs_eve.RENAMES.values()) | {"event.module", "event.dataset", "event.kind", "event.category"}
+ECS_FIELDS = set(ecs_eve.RENAMES.values()) | {
+    "event.module", "event.dataset", "event.kind", "event.category", enrich.MATCHED_FIELD, enrich.PROVIDER_FIELD,
+}
+MISP = enrich.load_dictionary(ROOT / "pipelines" / "eve" / "dictionaries" / "misp_ip.yml")
 UUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 
 def sample_event(name: str) -> dict:
-    return ecs_eve.normalise((SAMPLES / name).read_text().strip())
+    """Sample as the full pipeline leaves it: normalised, then enriched from the MISP dictionary."""
+    return enrich.enrich(ecs_eve.normalise((SAMPLES / name).read_text().strip()), MISP)
 
 
 def rule_of(path: Path) -> dict:

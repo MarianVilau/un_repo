@@ -21,7 +21,7 @@ SECRET_VARS = {"OPENSEARCH_INITIAL_ADMIN_PASSWORD"}
 
 
 def test_stage_files_exist_in_order() -> None:
-    assert list(CONF) == ["10-input.conf", "20-normalise.conf", "90-output.conf"]
+    assert list(CONF) == ["10-input.conf", "20-normalise.conf", "30-enrich.conf", "90-output.conf"]
 
 
 def test_no_literal_ports_hosts_or_ips() -> None:

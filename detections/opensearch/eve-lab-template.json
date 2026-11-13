@@ -24,6 +24,16 @@
         },
         "source": { "properties": { "ip": { "type": "ip" }, "port": { "type": "integer" } } },
         "destination": { "properties": { "ip": { "type": "ip" }, "port": { "type": "integer" } } },
+        "threat": {
+          "properties": {
+            "indicator": {
+              "properties": {
+                "provider": { "type": "keyword" },
+                "matched": { "type": "boolean" }
+              }
+            }
+          }
+        },
         "network": { "properties": { "transport": { "type": "keyword" } } },
         "rule": {
           "properties": {

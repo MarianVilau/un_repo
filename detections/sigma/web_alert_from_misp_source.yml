@@ -1,0 +1,26 @@
+title: IDS Alert From A Source Listed In MISP
+id: f1de5f69-478d-4e6d-bf58-1d2cd12c290d
+status: experimental
+description: |
+  Any IDS alert whose source address is a MISP indicator flagged for detection. The alert
+  alone may be low severity; the listing is what makes it worth an analyst. Needs the
+  enrichment stage (pipelines/eve/30-enrich.conf), otherwise the field is never set.
+references:
+  - https://attack.mitre.org/techniques/T1190/
+author: Marian Vilau
+date: 2026-11-13
+tags:
+  - attack.initial-access
+  - attack.t1190
+logsource:
+  product: eve
+  service: alert
+detection:
+  selection_source:
+    event.dataset: eve.alert
+  selection_listed:
+    threat.indicator.matched: true
+  condition: selection_source and selection_listed
+falsepositives:
+  - A feed entry for a shared address (CDN, VPN exit) that also fronts legitimate users
+level: high
