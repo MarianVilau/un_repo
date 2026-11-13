@@ -1,0 +1,12 @@
+# Lab Alertmanager. One receiver with no integration: the alert is visible in the
+# Alertmanager UI and in Grafana, which is what the evidence needs. Add a webhook or email
+# receiver here when the lab has somewhere to send it, with the secret in SOPS (R-02).
+route:
+  receiver: lab
+  group_by: [alertname, instance]
+  group_wait: 10s
+  group_interval: 1m
+  repeat_interval: 1h
+
+receivers:
+  - name: lab
