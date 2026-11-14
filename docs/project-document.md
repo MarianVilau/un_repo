@@ -52,7 +52,7 @@ A status moves to `Implemented` only when the evidence files named in its row ex
 
 Branch protection (R-01, R-03) is a GitHub ruleset stored in `.github/rulesets/main.json`. The pull request template and `pr-cites-risk-id` force every change to name a risk. The agent review (`docs/agent-review.md`) is advisory and sits beside the ruleset; it does not replace it.
 
-GitHub plan route: the repository is private. Whether rulesets on a private repository are enforced depends on the account plan, and the plan was not checked from the working environment. The fallback is the `governance` workflow, which fails a push to main that has no pull request. The owner should state the plan actually used when presenting.
+GitHub plan route: GitHub Free, route 4 of the module syllabus (evidence-based governance), as stated in `README.md`. The repository is private. The ruleset `main-protection` is enforced on it and the live required checks were read back with `gh api` (see `docs/evidence/s4-pr-blocked-by-ci.png`). The `governance` workflow is a second layer: it fails a push to main that has no pull request.
 
 ## 4. CI/CD
 
