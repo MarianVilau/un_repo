@@ -1,0 +1,21 @@
+groups:
+  - name: lab-availability
+    rules:
+      # Fires 30 s after a lab container stops accepting TCP connections (R-10, S7).
+      - alert: LabServiceDown
+        expr: probe_success{job="lab-services"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.instance }} does not accept connections"
+
+      # The monitoring stack watches itself. Prometheus cannot report its own death,
+      # so these cover Alertmanager and Grafana.
+      - alert: MonitoringComponentDown
+        expr: up{job=~"alertmanager|grafana"} == 0
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.job }} is not answering scrapes"

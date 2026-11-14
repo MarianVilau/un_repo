@@ -5,7 +5,7 @@ SHELL := /bin/bash
 
 # Recursive variables: they are expanded when a recipe runs, after .env.secrets exists.
 ENV_FILES = --env-file .env $(if $(wildcard .env.secrets),--env-file .env.secrets)
-PROFILE   = $(if $(wildcard certs/frontdoor.crt),--profile frontdoor)
+PROFILE   = $(if $(wildcard certs/frontdoor.crt),--profile frontdoor) $(if $(wildcard secrets/grafana.enc.yaml),--profile monitoring)
 
 .PHONY: secrets up down health cert reload pin-digests verify test lint sigma-query load-samples misp-dictionary exposure-check
 
@@ -15,12 +15,13 @@ PROFILE   = $(if $(wildcard certs/frontdoor.crt),--profile frontdoor)
 # Decrypt the SOPS secret for compose; owner-only file, deleted by make down.
 secrets:
 	umask 077 && sops -d secrets/opensearch.enc.yaml | sed 's/: /=/' > .env.secrets
+	[ ! -f secrets/grafana.enc.yaml ] || sops -d secrets/grafana.enc.yaml | sed 's/: /=/' >> .env.secrets
 
 up: .env secrets
 	docker compose $(ENV_FILES) $(PROFILE) up -d --wait --wait-timeout 240
 
 down: .env
-	docker compose $(ENV_FILES) --profile frontdoor down -v
+	docker compose $(ENV_FILES) --profile frontdoor --profile monitoring down -v
 	rm -f .env.secrets
 
 # Poll the cluster health until green or yellow (output goes to docs/evidence).
