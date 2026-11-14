@@ -71,3 +71,15 @@ def test_api_failure_does_not_leak_the_key(monkeypatch, capsys) -> None:
     assert exposure_check.main() == 2
     captured = capsys.readouterr()
     assert "dummy-key" not in captured.out + captured.err
+
+
+def test_http_status_is_shown_without_the_key(monkeypatch, capsys) -> None:
+    _env(monkeypatch)
+
+    def refused(*a):
+        raise RuntimeError("Shodan answered HTTP 403")
+
+    monkeypatch.setattr(exposure_check, "fetch_host", refused)
+    assert exposure_check.main() == 2
+    err = capsys.readouterr().err
+    assert "HTTP 403" in err and "dummy-key" not in err

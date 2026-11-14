@@ -66,7 +66,9 @@ def main() -> int:
     try:
         host = fetch_host(os.environ["SHODAN_API_HOST"], os.environ["SHODAN_TARGET_IP"], os.environ["SHODAN_API_KEY"])
     except (RuntimeError, OSError, ValueError) as exc:
-        print(f"lookup failed: {type(exc).__name__}", file=sys.stderr)  # no URL, it carries the key
+        # The URL carries the key, so only our own RuntimeError text (status code) is shown.
+        detail = f": {exc}" if isinstance(exc, RuntimeError) else ""
+        print(f"lookup failed: {type(exc).__name__}{detail}", file=sys.stderr)
         return 2
     result = compare(parse_ports(os.environ["SHODAN_EXPECTED_PORTS"]), host)
     print(json.dumps(result, indent=2))
