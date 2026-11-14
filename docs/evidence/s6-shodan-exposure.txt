@@ -1,0 +1,10 @@
+{
+  "observed_ports": [],
+  "unexpected_ports": [],
+  "expected_not_seen": [
+    443
+  ],
+  "vulns": [],
+  "ok": true,
+  "source": "internetdb.shodan.io"
+}
