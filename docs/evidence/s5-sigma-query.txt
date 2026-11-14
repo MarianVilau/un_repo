@@ -1,0 +1,6 @@
+# web_alert_from_misp_source.yml
+event.dataset:eve.alert AND threat.indicator.matched:true
+# web_scanner_user_agent.yml
+event.dataset:eve.alert AND (user_agent.original:(*sqlmap* OR *nikto* OR *masscan* OR *zgrab*))
+# web_sql_injection_alert.yml
+event.dataset:eve.alert AND (url.original:(*'\ OR\ * OR *UNION\ SELECT* OR *%27%20OR%20* OR *UNION%20SELECT*))
