@@ -81,11 +81,17 @@ Evidence that it changes an outcome: `docs/evidence/s6-enrichment-outcome.txt`. 
 
 Shodan: `scripts/exposure_check.py` compares the ports Shodan sees on the lab's public IP with the expected list. The key is read from SOPS through `make exposure-check`.
 
-Limits, stated plainly: Logstash did not run in the working environment, so the conf is checked statically against the reference in `detections/enrich.py`. The Shodan response shape in the fixtures is not checked against a live response. The screenshots from a running MISP and Dashboards are pending.
+Limits, stated plainly: Logstash did not run in the working environment, so the conf is checked statically against the reference in `detections/enrich.py`. The Shodan response shape in the fixtures is not checked against a live response. The Dashboards capture of a tagged alert (`s6-dashboards-misp-hit.png`) was taken with the seed dictionary, not with a live MISP; the MISP event screenshot is still to do.
 
 ## 7. Evidence and open items
 
-Evidence files are listed per session in `docs/evidence/README.md`. The S4 evidence (green CI, Actions settings, a failing PR blocked by `ci-gate`, and the cosign verification of release `v0.1.0`) exists, and R-06 is `Implemented`. These items depend on actions on the owner's machine and are not in the repository yet: the S5 and S6 screenshots from the running stack, the Shodan output, the monitoring alert screenshots, a run of the agent review with its secret set, the token-scope screenshot for R-04 and the poisoning screenshot for R-05. Until they exist, R-04, R-05, R-07, R-09 and R-10 stay `Open`.
+Evidence files are listed per session in `docs/evidence/README.md`. Present: S1 to S4, S5 (Sigma query, Dashboards hit, green CI), the S6 enrichment outcome and a Dashboards capture of a tagged alert, and the S7 container-stop alert in Prometheus and Grafana. R-01, R-02, R-03, R-06, R-07 and R-08 are `Implemented`.
+
+Still open, and why:
+- R-09: the Dashboards capture used the seed dictionary. A run against a live MISP, with its event screenshot, is to do.
+- R-10: the alert evidence exists. The Shodan output is missing, and the alert on a new port or banner is not built.
+- R-04: the token-scope screenshot is missing.
+- R-05: the poisoning screenshot is missing, and the agent review has not run with its secret set.
 
 ## 8. Handover
 
