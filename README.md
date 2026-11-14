@@ -19,13 +19,14 @@ Each control has a proof file in [`docs/evidence/`](docs/evidence/). The [index]
 | R-07 | Sigma rules, pipeline tests, parse failures kept | [`s5-sigma-query.txt`](docs/evidence/s5-sigma-query.txt), [`s5-dashboards-hit.png`](docs/evidence/s5-dashboards-hit.png), [`s5-ci-green.png`](docs/evidence/s5-ci-green.png) |
 | R-08 | TLS front door, pinned images | [`s3-health-up1.txt`](docs/evidence/s3-health-up1.txt), [`s3-health-up2.txt`](docs/evidence/s3-health-up2.txt), [`s3-cert-chain.txt`](docs/evidence/s3-cert-chain.txt) |
 
-Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictionary, a live MISP capture is still to do) and R-10 (alert evidence exists, the Shodan output does not).
+Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictionary, a live MISP capture is still to do) and R-10 (alert evidence and the Shodan output exist; the Shodan check ran through InternetDB and the scheduled run is not built).
 
 ## Start here
 
 - `RISK-REGISTER.md` (text) and `RISK-REGISTER.xlsx` (scored): ten risks in the three registers, written before any code.
 - `CONTRIBUTING.md`: workflow, Git CLI risks and the control for each.
 - `SECURITY.md`: reporting and scope.
+- `docs/guided-tour.md`: a reading order that checks each claim in about ten steps.
 - `docs/evidence/`: proof for each control.
 
 ## Status by session
