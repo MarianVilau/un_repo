@@ -55,7 +55,7 @@ Risks: R-09 (known-malicious sources go unflagged), R-10 (unwatched exposure on 
    make exposure-check | tee docs/evidence/s6-shodan-exposure.txt
    ```
 
-   Set `SHODAN_TARGET_IP` and `SHODAN_EXPECTED_PORTS` in `.env` first. Exit code 1 is a finding, not a failure of the tool. Session 7 turns it into an Alertmanager rule.
+   Set `SHODAN_TARGET_IP` and `SHODAN_EXPECTED_PORTS` in `.env` first. A free Shodan account gets HTTP 403 on the host lookup. For that case set `SHODAN_MODE=internetdb` and `SHODAN_API_HOST=internetdb.shodan.io`: the check then uses the free keyless InternetDB service, and the output names its `source`. InternetDB data is coarser (ports, vulnerabilities, tags) and its response shape was read from a sample, not tested live. Exit code 1 is a finding, not a failure of the tool. Session 7 turns it into an Alertmanager rule.
 
 ## Evidence
 

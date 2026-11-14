@@ -83,3 +83,26 @@ def test_http_status_is_shown_without_the_key(monkeypatch, capsys) -> None:
     assert exposure_check.main() == 2
     err = capsys.readouterr().err
     assert "HTTP 403" in err and "dummy-key" not in err
+
+
+def test_internetdb_mode_needs_no_key_and_names_its_source(monkeypatch, capsys) -> None:
+    for name, value in (("SHODAN_MODE", "internetdb"), ("SHODAN_API_HOST", "internetdb.shodan.io"),
+                        ("SHODAN_TARGET_IP", "203.0.113.5"), ("SHODAN_EXPECTED_PORTS", "443")):
+        monkeypatch.setenv(name, value)
+    monkeypatch.delenv("SHODAN_API_KEY", raising=False)
+    seen = {}
+
+    def fake(host, ip, key, mode):
+        seen["mode"] = mode
+        return {"ports": [443], "vulns": []}
+
+    monkeypatch.setattr(exposure_check, "fetch_host", fake)
+    assert exposure_check.main() == 0
+    out = json.loads(capsys.readouterr().out)
+    assert seen["mode"] == "internetdb" and out["source"] == "internetdb.shodan.io"
+
+
+def test_unknown_mode_is_refused(monkeypatch) -> None:
+    _env(monkeypatch)
+    monkeypatch.setenv("SHODAN_MODE", "other")
+    assert exposure_check.main() == 2
