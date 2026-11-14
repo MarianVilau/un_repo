@@ -1,0 +1,29 @@
+title: SQL Injection Pattern In Request Flagged By IDS
+id: 1658600b-8858-4ea1-bdc0-2cd79dfd8145
+status: experimental
+description: |
+  An IDS alert whose request URL carries a classic SQL injection pattern. Aimed at the
+  intentionally vulnerable Juice Shop in the home lab. Fields are ECS, after the eve pipeline.
+references:
+  - https://attack.mitre.org/techniques/T1190/
+author: Marian Vilau
+date: 2026-11-12
+tags:
+  - attack.initial-access
+  - attack.t1190
+logsource:
+  product: eve
+  service: alert
+detection:
+  selection_source:
+    event.dataset: eve.alert
+  selection_pattern:
+    url.original|contains:
+      - "' OR "
+      - "UNION SELECT"
+      - "%27%20OR%20"
+      - "UNION%20SELECT"
+  condition: selection_source and selection_pattern
+falsepositives:
+  - Deliberate testing of Juice Shop from the lab itself
+level: high

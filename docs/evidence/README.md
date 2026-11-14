@@ -37,3 +37,11 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 | `s4-pr-blocked-by-ci.png` | A pull request with a deliberate failure (for example a tag-pinned action), merge button disabled by the required `ci-gate` check. Close it afterwards. | R-01 |
 | `s4-actions-settings.png` | Settings, Actions, General: SHA pinning required, workflow permissions read only, approval for outside contributors. | R-06 |
 | `s4-release-verify.txt` | Output of the `cosign verify-blob` commands in `docs/ci-runbook.md`, run on the downloaded release files. | R-06 |
+
+## Session 5
+
+| File | How to produce it | Risk |
+|---|---|---|
+| `s5-sigma-query.txt` | `make sigma-query \| tee docs/evidence/s5-sigma-query.txt` | R-07 |
+| `s5-dashboards-hit.png` | After `make load-samples`: Discover on `eve-lab*`, paste the SQL injection query, one document matches. See `docs/detection-runbook.md`. | R-07 |
+| `s5-ci-green.png` | The `ci` run on the S5 pull request, `pytest` and `ci-gate` green. | R-07 |
