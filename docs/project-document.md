@@ -85,7 +85,7 @@ Limits, stated plainly: Logstash did not run in the working environment, so the 
 
 ## 7. Evidence and open items
 
-Evidence files are listed per session in `docs/evidence/README.md`. At the time of writing these items depend on actions on the owner's machine and are not in the repository: the S4 CI and release evidence (including `ci-gate` as a required check in the live ruleset), the S5 and S6 screenshots from the running stack, the Shodan output, the monitoring alert screenshots, and a run of the agent review with its secret set. Until they exist, R-04 to R-07, R-09 and R-10 stay `Open`.
+Evidence files are listed per session in `docs/evidence/README.md`. The S4 evidence (green CI, Actions settings, a failing PR blocked by `ci-gate`, and the cosign verification of release `v0.1.0`) exists, and R-06 is `Implemented`. These items depend on actions on the owner's machine and are not in the repository yet: the S5 and S6 screenshots from the running stack, the Shodan output, the monitoring alert screenshots, a run of the agent review with its secret set, the token-scope screenshot for R-04 and the poisoning screenshot for R-05. Until they exist, R-04, R-05, R-07, R-09 and R-10 stay `Open`.
 
 ## 8. Handover
 
