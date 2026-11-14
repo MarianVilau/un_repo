@@ -85,7 +85,7 @@ Limits, stated plainly: Logstash did not run in the working environment, so the 
 
 ## 7. Evidence and open items
 
-Evidence files are listed per session in `docs/evidence/README.md`. Present: S1 to S4, S5 (Sigma query, Dashboards hit, green CI), the S6 enrichment outcome and a Dashboards capture of a tagged alert, and the S7 container-stop alert in Prometheus and Grafana. R-01, R-02, R-03, R-06, R-07 and R-08 are `Implemented`.
+Evidence files are listed per session in `docs/evidence/README.md`. Present: S1 to S4, S5 (Sigma query, Dashboards hit, green CI), the S6 enrichment outcome and a Dashboards capture of a tagged alert, and the S7 container-stop alert in Prometheus and Grafana. R-01, R-02, R-03, R-04, R-05, R-06, R-07 and R-08 are `Implemented`.
 
 Still open, and why:
 - R-09: the Dashboards capture used the seed dictionary. A run against a live MISP, with its event screenshot, is to do.
