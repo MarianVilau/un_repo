@@ -25,7 +25,7 @@ Pushing from the command line, by hand or through an agent, carries four named r
 | Secret leaked in a commit | R-02 | gitleaks pre-commit hook, SOPS/age for secrets | `.pre-commit-config.yaml`, `.gitleaks.toml` |
 | Force push rewrites history | R-03 | `non_fast_forward` and `deletion` rules on main | `.github/rulesets/main.json` |
 | Unreviewed code lands on main | R-01 | PR required, status checks required, `no-commit-to-branch` hook, `main-only-via-pr` workflow | ruleset, hook, `.github/workflows/governance.yml` |
-| Over-scoped credential | R-04 | Fine-grained token limited to this repository, 7-day expiry, `permissions:` read by default in workflows | token settings screenshot, workflow files |
+| Over-scoped credential | R-04 | Fine-grained token limited to this repository, 30-day expiry, `permissions:` read by default in workflows | token settings screenshot, workflow files |
 
 ## Rules for agents
 

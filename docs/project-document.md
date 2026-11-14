@@ -90,7 +90,7 @@ Evidence files are listed per session in `docs/evidence/README.md`. Present: S1 
 Still open, and why:
 - R-09: the Dashboards capture used the seed dictionary. A run against a live MISP, with its event screenshot, is to do.
 - R-10: the alert evidence exists. The Shodan output is missing, and the alert on a new port or banner is not built.
-- R-04: the token-scope screenshot is missing.
+- R-04: `Implemented` for this repository. The broad GitHub CLI OAuth authorization is not revoked, because the owner's other repositories use it. This is an accepted limit and is written in the register.
 - Agent review: it has not run with its secret set (`ANTHROPIC_API_KEY`), so there is no `s7-agent-review.png` yet.
 
 ## 8. Handover
