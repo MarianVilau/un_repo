@@ -33,6 +33,6 @@ Pushing from the command line, by hand or through an agent, carries four named r
 - `--force`, `--no-verify` and edits to `.github/` or the AI configuration need explicit owner approval.
 - Memory, skill and CLAUDE.md changes are reviewed line by line (R-05).
 
-## Branch protection on a personal GitHub Free account
+## Branch protection and the plan it needs
 
-Rulesets on private repositories need a paid plan or the ULBS organisation. Without one, the evidence-based route applies: the `no-commit-to-branch` hook blocks local commits on main, and the `main-only-via-pr` job fails whenever a commit reaches main without a merged pull request. The ruleset in `.github/rulesets/main.json` sets `required_approving_review_count` to 0 because a single maintainer cannot approve their own pull request. Raise it to 1 and turn on `require_code_owner_review` when a second reviewer has access.
+Rulesets on private repositories need a paid plan or the ULBS organisation. The owner's account has GitHub Pro (student plan), so the ruleset is enforced server-side. On a plan without rulesets, the evidence-based route applies: the `no-commit-to-branch` hook blocks local commits on main, and the `main-only-via-pr` job fails whenever a commit reaches main without a merged pull request. The ruleset in `.github/rulesets/main.json` sets `required_approving_review_count` to 0 because a single maintainer cannot approve their own pull request. Raise it to 1 and turn on `require_code_owner_review` when a second reviewer has access.

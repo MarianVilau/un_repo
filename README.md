@@ -46,4 +46,4 @@ See `docs/lab3-runbook.md`. Short form: `scripts/init-secrets.sh`, `make pin-dig
 
 ## GitHub plan route
 
-Evidence-based governance on GitHub Free (route 4 of the module syllabus), unless the repository moves to the ULBS organisation. See `CONTRIBUTING.md`.
+The owner's account has GitHub Pro (student plan), so the ruleset `main-protection` is enforced by GitHub on this private repository. The `no-commit-to-branch` hook and the `main-only-via-pr` job stay as the second and third layers, and are the fallback on a plan without rulesets. See `CONTRIBUTING.md`.
