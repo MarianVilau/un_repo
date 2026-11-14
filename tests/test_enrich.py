@@ -92,3 +92,14 @@ def test_enrichment_changes_the_outcome() -> None:
 
 def test_other_rules_do_not_fire_on_the_listed_sample() -> None:
     assert not _fires(OTHER_RULES, _event("listed_positive.json"))
+
+
+def test_only_the_listed_sample_is_tagged_by_the_seed_dictionary() -> None:
+    """A sample that shares a source with the dictionary would give two hits in Discover."""
+    d = enrich.load_dictionary(DICT)
+    tagged = {
+        p.name
+        for p in sorted(SAMPLES.glob("*.json"))
+        if "threat" in enrich.enrich(ecs_eve.normalise(p.read_text().strip()), d)
+    }
+    assert tagged == {"listed_positive.json"}
