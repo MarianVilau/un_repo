@@ -13,12 +13,13 @@ Each control has a proof file in [`docs/evidence/`](docs/evidence/). The [index]
 | R-01 | main protected, PR and `ci-gate` required | [`s1-direct-push-refused.png`](docs/evidence/s1-direct-push-refused.png), [`s1-pr-blocked.png`](docs/evidence/s1-pr-blocked.png), [`s4-pr-blocked-by-ci.png`](docs/evidence/s4-pr-blocked-by-ci.png) |
 | R-02 | secret scan, SOPS/age ciphertext | [`s1-gitleaks-blocked.png`](docs/evidence/s1-gitleaks-blocked.png), [`s3-git-show-ciphertext.txt`](docs/evidence/s3-git-show-ciphertext.txt) |
 | R-03 | no force push | [`s1-force-push-refused.png`](docs/evidence/s1-force-push-refused.png), [`s2-hook-blocks-force-push.png`](docs/evidence/s2-hook-blocks-force-push.png) |
-| R-05 | guard hook for the AI configuration | [`s2-hook-loaded.png`](docs/evidence/s2-hook-loaded.png), [`s2-guard-tests.png`](docs/evidence/s2-guard-tests.png) |
+| R-04 | fine-grained token, one repository, 30-day expiry | [`s1-token-scope.png`](docs/evidence/s1-token-scope.png) |
+| R-05 | guard hook for the AI configuration | [`s2-hook-loaded.png`](docs/evidence/s2-hook-loaded.png), [`s2-guard-tests.png`](docs/evidence/s2-guard-tests.png), [`s2-poisoning-blocked.png`](docs/evidence/s2-poisoning-blocked.png) |
 | R-06 | pinned actions, signed release | [`s4-ci-green.png`](docs/evidence/s4-ci-green.png), [`s4-actions-settings.png`](docs/evidence/s4-actions-settings.png), [`s4-release-verify.txt`](docs/evidence/s4-release-verify.txt) |
 | R-07 | Sigma rules, pipeline tests, parse failures kept | [`s5-sigma-query.txt`](docs/evidence/s5-sigma-query.txt), [`s5-dashboards-hit.png`](docs/evidence/s5-dashboards-hit.png), [`s5-ci-green.png`](docs/evidence/s5-ci-green.png) |
 | R-08 | TLS front door, pinned images | [`s3-health-up1.txt`](docs/evidence/s3-health-up1.txt), [`s3-health-up2.txt`](docs/evidence/s3-health-up2.txt), [`s3-cert-chain.txt`](docs/evidence/s3-cert-chain.txt) |
 
-Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictionary, a live MISP capture is still to do) and R-10 (alert evidence exists, the Shodan output does not). No proof yet: R-04, R-05.
+Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictionary, a live MISP capture is still to do) and R-10 (alert evidence exists, the Shodan output does not).
 
 ## Start here
 
