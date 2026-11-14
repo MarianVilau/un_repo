@@ -64,12 +64,14 @@ load-samples:
 
 # Rebuild the MISP indicator dictionary. The key is decrypted into this one command only (R-02, R-09).
 misp-dictionary: .env
-	set -a; . ./.env; set +a; \
+	set -a; . ./.env; \
 	eval "$$(sops -d secrets/misp.enc.yaml | sed 's/: /=/')"; \
+	set +a; \
 	python3 threatintel/misp_lookup.py
 
 # Ask Shodan what it sees on the lab IP; exit 1 on an unexpected port (R-02, R-10).
 exposure-check: .env
-	set -a; . ./.env; set +a; \
+	set -a; . ./.env; \
 	eval "$$(sops -d secrets/shodan.enc.yaml | sed 's/: /=/')"; \
+	set +a; \
 	python3 scripts/exposure_check.py
