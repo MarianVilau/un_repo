@@ -1,0 +1,29 @@
+title: Known Web Vulnerability Scanner User Agent In IDS Alert
+id: 0b033311-b192-4c8b-9efe-4f76507f2c78
+status: experimental
+description: |
+  An IDS alert on an HTTP request whose user agent names a common vulnerability scanner.
+  Scanners are the first sign of reconnaissance against the exposed Juice Shop.
+references:
+  - https://attack.mitre.org/techniques/T1595/002/
+author: Marian Vilau
+date: 2026-11-12
+tags:
+  - attack.reconnaissance
+  - attack.t1595.002
+logsource:
+  product: eve
+  service: alert
+detection:
+  selection_source:
+    event.dataset: eve.alert
+  selection_agent:
+    user_agent.original|contains:
+      - sqlmap
+      - nikto
+      - masscan
+      - zgrab
+  condition: selection_source and selection_agent
+falsepositives:
+  - Authorised scans run from the lab on purpose
+level: medium

@@ -1,0 +1,49 @@
+name: governance
+
+# R-01, R-03, R-06. No third-party actions are used here, so nothing to pin.
+# pull_request (not pull_request_target): fork code never runs with repository secrets.
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened]
+  push:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  pr-cites-risk-id:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    permissions: {}
+    steps:
+      - name: Pull request description must cite a risk ID
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if printf '%s' "$PR_BODY" | grep -Eq 'R-[0-9]{2}'; then
+            echo "Risk ID found."
+          else
+            echo "::error::Cite at least one risk ID (for example R-01) in the pull request description."
+            exit 1
+          fi
+
+  main-only-via-pr:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Fail when a commit reached main without a merged pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          merged=$(gh api "repos/${REPO}/commits/${SHA}/pulls" --jq '[.[] | select(.merged_at != null)] | length')
+          if [ "${merged}" -lt 1 ]; then
+            echo "::error::Commit ${SHA} is on main but belongs to no merged pull request (R-01, R-03)."
+            exit 1
+          fi
+          echo "Commit ${SHA} arrived through a merged pull request."

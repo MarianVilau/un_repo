@@ -1,0 +1,6 @@
+listed_positive.json  source.ip=203.0.113.77
+  before enrichment: no rule fires
+  after enrichment:  ['web_alert_from_misp_source']
+listed_negative.json  source.ip=203.0.113.60
+  before enrichment: no rule fires
+  after enrichment:  no rule fires

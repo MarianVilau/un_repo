@@ -1,0 +1,15 @@
+# R-01, R-05. Every change needs a review from a code owner when the ruleset enforces it.
+*                       @MarianVilau
+
+# AI configuration is an attack surface (R-05): review it like code.
+/CLAUDE.md              @MarianVilau
+/.claude/               @MarianVilau
+/memory/                @MarianVilau
+
+# Controls that guard the other controls.
+/.github/               @MarianVilau
+/.pre-commit-config.yaml @MarianVilau
+/.gitleaks.toml         @MarianVilau
+/secrets/               @MarianVilau
+/RISK-REGISTER.xlsx     @MarianVilau
+/RISK-REGISTER.md       @MarianVilau

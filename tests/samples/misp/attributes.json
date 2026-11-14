@@ -1,0 +1,8 @@
+{"Attribute": [
+ {"id":"1","type":"ip-src","value":"203.0.113.77","to_ids":true,"category":"Network activity"},
+ {"id":"2","type":"ip-dst","value":"192.0.2.44","to_ids":true,"category":"Network activity"},
+ {"id":"3","type":"ip-src","value":"192.168.1.20","to_ids":true,"category":"Network activity"},
+ {"id":"4","type":"ip-src","value":"203.0.113.99","to_ids":false,"category":"Network activity"},
+ {"id":"5","type":"domain","value":"evil.example","to_ids":true,"category":"Network activity"},
+ {"id":"6","type":"ip-src","value":"not-an-ip","to_ids":true,"category":"Network activity"}
+]}

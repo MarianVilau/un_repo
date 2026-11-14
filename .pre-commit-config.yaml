@@ -1,0 +1,18 @@
+# Local controls for R-01, R-02 and R-03. Install once per clone:
+#   pip install pre-commit && pre-commit install --hook-type pre-commit --hook-type pre-push
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks          # R-02: refuse commits that contain a secret
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: no-commit-to-branch   # R-01, R-03: no commits on the protected branch
+        args: [--branch, main, --branch, master]
+      - id: detect-private-key    # R-02: second net for key material
+      - id: check-added-large-files
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
