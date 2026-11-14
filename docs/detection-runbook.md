@@ -8,7 +8,7 @@ Risk: R-07 (a malformed or oversized line makes detections blind). Related: R-09
 |---|---|
 | `detections/sigma/*.yml` | Two Sigma rules: SQL injection pattern (ATT&CK T1190) and scanner user agent (T1595.002). Fields are ECS. |
 | `tests/samples/eve/` | One positive and one negative raw EVE sample per rule, plus `malformed_line.txt`. Addresses are from the documentation ranges (RFC 5737). |
-| `pipelines/eve/` | Logstash stages: `10-input`, `20-normalise`, `90-output`. `30-enrich` arrives in Session 6. |
+| `pipelines/eve/` | Logstash stages: `10-input`, `20-normalise`, `90-output`. `30-enrich` is Session 6, see `docs/threatintel-runbook.md`. |
 | `detections/ecs_eve.py` | Reference mapping EVE to ECS. The tests compare it with `20-normalise.conf`. |
 | `detections/sigma_match.py` | Small Sigma evaluator so pytest can assert match and no-match. Unsupported syntax raises an error. |
 | `detections/opensearch/eve-lab-template.json` | Index template: matching fields are keywords with a lowercase normalizer, so Sigma's case-insensitive match works in Lucene. |
