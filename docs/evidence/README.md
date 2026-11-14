@@ -53,7 +53,7 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 | `s6-enrichment-outcome.txt` | `python3 scripts/enrichment_demo.py`. The same alert fires no rule before enrichment and one rule after. | R-09 |
 | `s6-misp-event.png` | MISP event with the listed `ip-src`, "For Intrusion Detection System" on. See `docs/threatintel-runbook.md`. | R-09 |
 | `s6-dashboards-misp-hit.png` | After `make load-samples`: Discover on `eve-lab-samples`, Lucene, query `threat.indicator.matched:true`, one hit. Taken with the seed dictionary; repeat after `make misp-dictionary` against a live MISP. | R-09 |
-| `s6-shodan-exposure.txt` | `make exposure-check`. | R-10 |
+| `s6-shodan-exposure.txt` | `make -s exposure-check` with `SHODAN_MODE=internetdb`; the JSON names its source. Contains no key and no IP. | R-10 |
 
 ## Session 7
 

@@ -19,7 +19,7 @@ Each control has a proof file in [`docs/evidence/`](docs/evidence/). The [index]
 | R-07 | Sigma rules, pipeline tests, parse failures kept | [`s5-sigma-query.txt`](docs/evidence/s5-sigma-query.txt), [`s5-dashboards-hit.png`](docs/evidence/s5-dashboards-hit.png), [`s5-ci-green.png`](docs/evidence/s5-ci-green.png) |
 | R-08 | TLS front door, pinned images | [`s3-health-up1.txt`](docs/evidence/s3-health-up1.txt), [`s3-health-up2.txt`](docs/evidence/s3-health-up2.txt), [`s3-cert-chain.txt`](docs/evidence/s3-cert-chain.txt) |
 
-Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictionary, a live MISP capture is still to do) and R-10 (alert evidence and the Shodan output exist; the Shodan check ran through InternetDB and the scheduled run is not built).
+Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictionary, a live MISP capture is still to do) and R-10 (the Shodan output exists, taken from the free InternetDB service; the alert on a container stop exists; the scheduled run and the alert on a new port or banner are not built).
 
 ## Start here
 
