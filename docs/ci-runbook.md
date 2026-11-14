@@ -59,7 +59,7 @@ These cannot be committed. Set them under Settings, Actions, General, then scree
 - Workflow permissions: read repository contents only.
 - Approval for all outside collaborators and first-time contributors.
 
-To make `ci-gate` required, re-import `.github/rulesets/main.json` after the first `ci` run has completed once, so GitHub knows the check name.
+To make `ci-gate` required, edit the existing ruleset after the first `ci` run has completed once, so GitHub knows the check name: Settings, Rules, Rulesets, `main-protection`, Require status checks, Add checks, `ci-gate`, Save. Importing the JSON again can create a second ruleset. `.github/rulesets/main.json` records the intended state. Check the live one with `gh api repos/MarianVilau/un_repo/rulesets/<id> --jq '.rules[] | select(.type=="required_status_checks") | .parameters.required_status_checks[].context'`.
 
 ## Known limits
 
