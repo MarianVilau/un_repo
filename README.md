@@ -26,6 +26,7 @@ Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictiona
 - `RISK-REGISTER.md` (text) and `RISK-REGISTER.xlsx` (scored): ten risks in the three registers, written before any code.
 - `CONTRIBUTING.md`: workflow, Git CLI risks and the control for each.
 - `SECURITY.md`: reporting and scope.
+- `docs/guided-tour.md`: a reading order that checks each claim in about ten steps.
 - `docs/evidence/`: proof for each control.
 
 ## Status by session
