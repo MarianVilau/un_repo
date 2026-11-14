@@ -42,7 +42,7 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 
 | File | How to produce it | Risk |
 |---|---|---|
-| `s5-sigma-query.txt` | `make sigma-query \| tee docs/evidence/s5-sigma-query.txt` | R-07 |
+| `s5-sigma-query.txt` | `make -s sigma-query \| tee docs/evidence/s5-sigma-query.txt` (`-s` keeps the command line out of the file; needs pySigma, see `requirements-dev.txt`) | R-07 |
 | `s5-dashboards-hit.png` | After `make load-samples`: Discover on `eve-lab*`, paste the SQL injection query, one document matches. See `docs/detection-runbook.md`. | R-07 |
 | `s5-ci-green.png` | The `ci` run on the S5 pull request, `pytest` and `ci-gate` green. | R-07 |
 
@@ -52,7 +52,7 @@ Each file below backs one row of `RISK-REGISTER.md`. A row moves from `Open` to 
 |---|---|---|
 | `s6-enrichment-outcome.txt` | `python3 scripts/enrichment_demo.py`. The same alert fires no rule before enrichment and one rule after. | R-09 |
 | `s6-misp-event.png` | MISP event with the listed `ip-src`, "For Intrusion Detection System" on. See `docs/threatintel-runbook.md`. | R-09 |
-| `s6-dashboards-misp-hit.png` | After `make load-samples`: Discover on `eve-lab-samples`, query `threat.indicator.matched:true`. | R-09 |
+| `s6-dashboards-misp-hit.png` | After `make load-samples`: Discover on `eve-lab-samples`, Lucene, query `threat.indicator.matched:true`, one hit. Taken with the seed dictionary; repeat after `make misp-dictionary` against a live MISP. | R-09 |
 | `s6-shodan-exposure.txt` | `make exposure-check`. | R-10 |
 
 ## Session 7

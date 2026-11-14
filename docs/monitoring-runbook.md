@@ -21,9 +21,9 @@ cAdvisor needs the Docker socket, `/sys` and `/var/lib/docker` mounted into a co
 
 ## What is not verified
 
-- Nothing here was run. The sandbox has no Docker, no registry access and no `promtool`.
-- The four image digests in `compose.yaml` are zero placeholders. `STRICT_DIGESTS=1` tests fail until `make pin-digests` replaces them. The tags (`v3.16.0`, `v0.35.0`, `v0.29.1`, `13.3.1`) come from the upstream git tags; whether the matching image tags exist on Docker Hub is checked by `make pin-digests`, which stops if one is missing.
-- The Alertmanager data source (`implementation: prometheus`) and the Grafana alert view are written from the Grafana documentation as I remember it and are unchecked.
+- Run on the owner's machine on 2026-11-14: all four services healthy, all Prometheus targets up, `LabServiceDown` fired about a minute after `opensearch-dashboards` was stopped and Grafana showed it as Firing (`s7-alert-firing.png`, `s7-grafana-alert.png`). The digests are pinned by `make pin-digests`.
+- `promtool` was not used. Rule syntax was accepted by Prometheus when it loaded the file, which is the only check made.
+- Resolving the alert after `start` was not captured.
 - R-10 also asked for an alert on a new port or banner. That is not built. `exposure_check.py` exits 1 on a finding, but nothing feeds that into Prometheus yet.
 
 ## Run it

@@ -15,9 +15,10 @@ Each control has a proof file in [`docs/evidence/`](docs/evidence/). The [index]
 | R-03 | no force push | [`s1-force-push-refused.png`](docs/evidence/s1-force-push-refused.png), [`s2-hook-blocks-force-push.png`](docs/evidence/s2-hook-blocks-force-push.png) |
 | R-05 | guard hook for the AI configuration | [`s2-hook-loaded.png`](docs/evidence/s2-hook-loaded.png), [`s2-guard-tests.png`](docs/evidence/s2-guard-tests.png) |
 | R-06 | pinned actions, signed release | [`s4-ci-green.png`](docs/evidence/s4-ci-green.png), [`s4-actions-settings.png`](docs/evidence/s4-actions-settings.png), [`s4-release-verify.txt`](docs/evidence/s4-release-verify.txt) |
+| R-07 | Sigma rules, pipeline tests, parse failures kept | [`s5-sigma-query.txt`](docs/evidence/s5-sigma-query.txt), [`s5-dashboards-hit.png`](docs/evidence/s5-dashboards-hit.png), [`s5-ci-green.png`](docs/evidence/s5-ci-green.png) |
 | R-08 | TLS front door, pinned images | [`s3-health-up1.txt`](docs/evidence/s3-health-up1.txt), [`s3-health-up2.txt`](docs/evidence/s3-health-up2.txt), [`s3-cert-chain.txt`](docs/evidence/s3-cert-chain.txt) |
 
-Still without proof files: R-04, R-07, R-09, R-10. Their rows stay `Open`.
+Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictionary, a live MISP capture is still to do) and R-10 (alert evidence exists, the Shodan output does not). No proof yet: R-04, R-05.
 
 ## Start here
 

@@ -26,7 +26,7 @@ For the pipeline it checks: one file per stage, no literal ports, hosts or IPs, 
 With the stack running (`make up`):
 
 ```bash
-make sigma-query | tee docs/evidence/s5-sigma-query.txt
+make -s sigma-query | tee docs/evidence/s5-sigma-query.txt
 make load-samples
 ```
 
@@ -41,7 +41,7 @@ make load-samples
 
 - Logstash did not run for this session. The conf files are checked statically and against the reference mapping. Whether Logstash accepts them is untested until a Logstash service joins the stack in Session 6, with a digest pinned by `make pin-digests`.
 - The Dashboards hit uses documents loaded by `load-samples`, not documents that came through Logstash.
-- The Lucene wildcard queries and the index template were not run against OpenSearch here. If the Discover query matches nothing, check that the index was created from the template (`GET eve-lab-samples/_mapping`).
+- Discover starts in DQL, which rejects the escaped spaces in the generated query (`DQLSyntaxError`). Switch the language to Lucene with the DQL button next to the search bar. With that, the SQL injection query returned exactly one document on 2026-11-14 (`s5-dashboards-hit.png`). If it matches nothing, check that the index was created from the template (`GET eve-lab-samples/_mapping`).
 - `sigma_match.py` is not Sigma. It supports `contains`, `startswith`, `endswith`, `re`, field lists and `and`, `or`, `not` with parentheses. A rule that needs more fails the tests.
 - Keyword fields have a 32 KB term limit. `EVE_MAX_LINE_BYTES` defaults to 16 KB, below it.
 - The output stage turns certificate verification off because the lab OpenSearch uses the image's demo certificate.
