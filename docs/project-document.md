@@ -107,7 +107,7 @@ The repository is private and shared with the professor as a collaborator. Nothi
 
 ### What was checked
 
-- A pattern search over all 110 commits on every local and remote branch and every tracked file for private key blocks, `AGE-SECRET-KEY-`, GitHub tokens (`ghp_`, `github_pat_`, `gho_`), Anthropic keys (`sk-ant-`) and AWS key IDs. No match.
+- A pattern search over all 110 commits on every local and remote branch and every tracked file for private key blocks, `AGE-SECRET-KEY-`, GitHub tokens (`ghp_`, `github_pat_`, `gho_`), Anthropic keys (`sk-ant-`) and AWS key IDs. No match. Binary files were skipped by that search, so the two `.xlsx` files were opened and searched as text for the same patterns, email addresses and IPv4 literals, and their author metadata was read. Nothing found.
 - The names of tracked files, the `.gitignore` rules (`git check-ignore` on `.env`, `certs/`, `keys.txt`), the authors in the history, every IPv4 literal, and every mention of the university or an email address.
 - The ruleset, CODEOWNERS and the workflow triggers.
 - All 18 screenshots in `docs/evidence/`, looked at one by one.
