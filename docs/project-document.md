@@ -100,3 +100,46 @@ Limits outside the register, accepted:
 ## 8. Handover
 
 Share the repository with the professor as a collaborator with read access, and add the professor to the project board. Do this from Settings, Collaborators; it needs the owner's account.
+
+## 9. What if the repository becomes public
+
+The repository is private and shared with the professor as a collaborator. Nothing here is planned. This chapter records what changes if the visibility is switched, based on a check of the repository at the head of `main` after pull request #30. It is a scenario, not a register row: `tests/test_register_evidence.py` expects exactly ten rows. If the plan becomes real, add R-11 and update that test.
+
+### What was checked
+
+- A pattern search over all 110 commits on every local and remote branch and every tracked file for private key blocks, `AGE-SECRET-KEY-`, GitHub tokens (`ghp_`, `github_pat_`, `gho_`), Anthropic keys (`sk-ant-`) and AWS key IDs. No match.
+- The names of tracked files, the `.gitignore` rules (`git check-ignore` on `.env`, `certs/`, `keys.txt`), the authors in the history, every IPv4 literal, and every mention of the university or an email address.
+- The ruleset, CODEOWNERS and the workflow triggers.
+- All 18 screenshots in `docs/evidence/`, looked at one by one.
+
+### Findings
+
+| Item | What becomes visible | Finding | Verdict |
+|---|---|---|---|
+| Secrets in files and history | Every file and commit, for everyone, with no way to recall them | No key or token pattern in any commit on any branch. No `.env`, certificate or key file is tracked. `.env`, `certs/` and `keys.txt` are ignored. | Clean for the patterns searched |
+| `secrets/*.enc.yaml` | Three ciphertext files and the age public key in `.sops.yaml` | Unreadable without the age private key. If that key leaks later, every copy of the ciphertext opens, including clones made while the repository was public. | Accept. Rotate the three lab secrets if the key is ever exposed |
+| Identity | Real name, the course and the university, a profile picture in screenshots | All 110 commits on every branch use the GitHub noreply address, so no personal email. Name and course appear in the README, `SECURITY.md` and this document. | Owner's choice |
+| Network details | Addresses and host names | IPv4 literals are in the reserved documentation ranges (203.0.113.0/24, 198.51.100.0/24, 192.0.2.0/24), plus `192.168.1.20` and `10.0.0.1` in test data. The real public IP lives only in the ignored `.env`. `s6-shodan-exposure.txt` contains no address. Host names are `frontdoor.lab`, `juice.lab` and service names. | Nothing useful to an attacker |
+| Screenshots | 18 images | No token value, no real IP, no password. They show the GitHub user name, branch names and a browser in Incognito mode. The SQL injection string in two screenshots is the test sample. | Clean |
+| How the controls work | Ruleset, hook patterns, CI, tests | An attacker can read exactly how each control is built. The design does not rely on keeping that secret. | Accept |
+| Pull requests from strangers | Anyone can fork and open a pull request | Workflows use `pull_request`, never `pull_request_target`. `agent-review` runs only for same-repository pull requests and is off. The Actions settings screenshot (taken while private) shows no write token and no secrets for fork pull requests and approval required for fork runs. | See the open points below |
+| Approval count in the ruleset | Who can merge | `required_approving_review_count` is 0 and code owner review is not required, although CODEOWNERS says "when the ruleset enforces it". Strangers cannot merge because they have no write access, not because a review is required. | Fine for one owner. Set the count to 1 and require code owner review before adding a collaborator with write access |
+| Prompt injection through public text | Pull request bodies, issues and comments written by anyone | R-05 grows: a stranger can write instructions into text the owner's agent might read. The guard hook and the owner's review of every diff limit the harm. This is reasoning, not a test. | Do not let an agent act on public pull request or issue text without the owner reading it first |
+| Reuse and copying | The whole project | There is no `LICENSE` file, so default copyright applies. Other students could still read and copy the structure. | Ask the professor before switching |
+| Reversibility | Clones and forks | Making the repository private again does not recall copies. | Treat the switch as permanent |
+
+### Open points
+
+- Past pull request descriptions, comments and Actions run logs would become public too. Only commits and tracked files were searched, not those.
+- `gitleaks` was not run in the working environment. The search above is a pattern match, not a full scanner. Run `gitleaks detect --log-opts="--all"` locally before any switch.
+- The repository and Actions settings cannot be read from the working environment. The fork pull request options are taken from `s4-actions-settings.png`, which shows the private-repository form of the page. Check them again after any switch.
+- `SECURITY.md` asks reporters to use a private security advisory. Whether private vulnerability reporting is enabled was not checked.
+- The release `v0.1.0` is signed without a long-lived key. I believe the signing identity is recorded in a public Sigstore log already, but I did not verify it.
+
+### If the switch is made
+
+1. Run `gitleaks` over the full history and read the old pull request descriptions and run logs.
+2. Enable private vulnerability reporting.
+3. Check the fork pull request options in Settings, Actions, General.
+4. Add a `LICENSE` or a README line stating the terms.
+5. Ask the professor, because the repository is coursework.
