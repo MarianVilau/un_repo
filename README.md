@@ -33,13 +33,13 @@ Partial proof, row stays `Open`: R-09 (the Dashboards hit uses the seed dictiona
 
 | Session | Content | State |
 |---|---|---|
-| 1 | Risk register, governed repository | in progress |
-| 2 | CLAUDE.md, memory, skills, guard hook | in review |
+| 1 | Risk register, governed repository | on main |
+| 2 | CLAUDE.md, memory, skills, guard hook | on main, evidence added |
 | 3 | Compose, SOPS/age, lab PKI | merged, evidence added |
-| 4 | CI/CD, SBOM, signing | merged, release `v0.1.0` signed, evidence in this branch |
-| 5 | Sigma rules and tests | in review (#18) |
-| 6 | MISP and Shodan enrichment | in review (#19) |
-| 7 | Observability, automated review, project document | in review (#20) |
+| 4 | CI/CD, SBOM, signing | merged, release `v0.1.0` signed |
+| 5 | Sigma rules and tests | merged |
+| 6 | MISP and Shodan enrichment | merged, R-09 and R-10 stay `Open` with their limits written in the register |
+| 7 | Observability, automated review, project document | merged, agent review off on purpose (no paid key) |
 
 ## Run the stack
 

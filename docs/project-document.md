@@ -88,10 +88,14 @@ Limits, stated plainly: Logstash did not run in the working environment, so the 
 Evidence files are listed per session in `docs/evidence/README.md`. Present: S1 to S4, S5 (Sigma query, Dashboards hit, green CI), the S6 enrichment outcome and a Dashboards capture of a tagged alert, and the S7 container-stop alert in Prometheus and Grafana. R-01, R-02, R-03, R-04, R-05, R-06, R-07 and R-08 are `Implemented`.
 
 Still open, and why:
-- R-09: the Dashboards capture used the seed dictionary. A run against a live MISP, with its event screenshot, is to do.
-- R-10: the container-stop alert and one Shodan check exist. The check ran through the free InternetDB service, because the free account gets HTTP 403 on the host API. The result shows no open ports for the lab IP. The service does not say whether the address has no record or is simply closed, so the output proves the check runs live, not that the address is clean. It is run by hand, and the alert on a new port or banner is not built, so the row stays `Open`.
+- R-09: the Dashboards capture used the seed dictionary. A live MISP was not run, because the owner chose not to spend the time left on it. The translate filter and the pull script are tested; the content of a real feed is not. The row stays `Open`, the residual score is raised to 9 (Medium) to match what is proven, and the limit is written in the register.
+- R-10: the container-stop alert and one Shodan check exist. The check ran through the free InternetDB service, because the free account gets HTTP 403 on the host API. The result shows no open ports for the lab IP. The service does not say whether the address has no record or is simply closed, so the output proves the check runs live, not that the address is clean. It is run by hand, and the alert on a new port or banner is not built, so the row stays `Open` with a residual score of 6 (Low).
 - R-04: `Implemented` for this repository. The broad GitHub CLI OAuth authorization is not revoked, because the owner's other repositories use it. This is an accepted limit and is written in the register.
-- Agent review: it has not run with its secret set (`ANTHROPIC_API_KEY`), so there is no `s7-agent-review.png` yet.
+- Agent review: it is off on purpose. There is no paid API key, so `ANTHROPIC_API_KEY` is not set, the job skips itself and succeeds, and there is no `s7-agent-review.png`. It is advisory and appears in no register row. The ruleset, `ci-gate` and the owner's review are the controls.
+
+Limits outside the register, accepted:
+- The age private key stays in `~/.config/sops/age/keys.txt` on the owner's machine and is in `.gitignore`. If it is lost, the `secrets/*.enc.yaml` files cannot be read and the secrets are generated again. They hold lab values only. No backup of the key is claimed.
+- Commits are not signed, so GitHub does not show them as Verified. The author name can be set by anyone with push rights. Branch protection and the owner's review of each pull request are what limit this. SSH commit signing would reduce it and is not set up.
 
 ## 8. Handover
 
